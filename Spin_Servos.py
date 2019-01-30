@@ -23,7 +23,7 @@ pwm.set_pwm_freq(60)
 # Use 'sudo i2c detect -y 1' to check
 
 
-# In[25]:
+# In[3]:
 
 
 def runServo(pinNumber, shaftPosition):
@@ -41,7 +41,7 @@ def spinServo(pinNumber, rotationSpeed):
     time.sleep(2)
 
 
-# In[26]:
+# In[4]:
 
 
 # Sweep through the servo's range of motion
@@ -52,6 +52,7 @@ def spinServo(pinNumber, rotationSpeed):
 # and turning the knob left of center operates the motor clockwise at higher speed
 # whereas turning the knob right of center operates the motor anti-clockwise at higher speed.
 
+
 def sweepServo(pinNumber):
     [spinServo(pinNumber, x) for x in range(340, 405, 5)]
     pwm.set_pwm(pinNumber, 0, 0)
@@ -61,7 +62,7 @@ sweepServo(0)
 sweepServo(4)
 """
 
-# In[40]:
+# In[5]:
 
 
 # Move buggy forward
@@ -79,7 +80,7 @@ def moveReverse_maximumSpeed(leftNumber, rightNumber):
 def halt(leftNumber, rightNumber):
     pwm.set_pwm(leftNumber, 0, 0)
     pwm.set_pwm(rightNumber, 0, 0)
-
+   
 """
 leftNumber = 0
 rightNumber = 4
@@ -90,5 +91,42 @@ time.sleep(2)
 moveReverse_maximumSpeed(leftNumber, rightNumber)
 time.sleep(10)
 halt(leftNumber, rightNumber)
+"""
 
+# In[12]:
+
+
+# Move buggy left or right
+# in forward mode
+
+def moveForward_turnRight(leftNumber, rightNumber):
+    pwm.set_pwm(leftNumber, 0, 400)
+    pwm.set_pwm(rightNumber, 0, 360)
+    
+def moveForward_turnLeft(leftNumber, rightNumber):
+    pwm.set_pwm(leftNumber, 0, 385)
+    pwm.set_pwm(rightNumber, 0, 340)
+
+"""
+leftNumber = 0
+rightNumber = 4
+print("Moving forward, full speed")
+moveForward_maximumSpeed(leftNumber, rightNumber)
+time.sleep(5)
+print("Making a right turn")
+moveForward_turnRight(leftNumber, rightNumber)
+time.sleep(10)
+print("Moving forward, full speed")
+moveForward_maximumSpeed(leftNumber, rightNumber)
+time.sleep(5)
+print("Making a left turn")
+moveForward_turnLeft(leftNumber, rightNumber)
+time.sleep(10)
+halt(leftNumber, rightNumber)
+
+
+# In[13]:
+
+
+halt(leftNumber, rightNumber)
 """
